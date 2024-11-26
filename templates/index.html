@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Predictor</title>
+    <link href="{{url_for('static',filename='../static/css/output-style.css')}}" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-md">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="activity" class="w-6 h-6 text-blue-600 dark:text-blue-400"></i>
+                    <h1 class="text-xl font-bold text-gray-800 dark:text-white">Heart Disease Predictor</h1>
+                </div>
+                
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 md:p-8">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-8 text-center">Predict Heart Disease Risk
+            </h2>
+
+            <form action="{{ url_for('predict')}}" method="post" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                            <div class="flex items-center space-x-1">
+                                <i data-lucide="user" class="w-4 h-4"></i>
+                                <span>Age</span>
+                            </div>
+                        </label>
+                        <input type="number" name="age" required min="0" max="120" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md 
+                                      bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                            <div class="flex items-center space-x-1">
+                                <i data-lucide="user" class="w-4 h-4"></i>
+                                <span>Sex</span>
+                            </div>
+                        </label>
+                        <select name="sex" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md 
+                                       bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Select gender</option>
+                            <option value="0">Female</option>
+                            <option value="1">Male</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                            <div class="flex items-center space-x-1">
+                                <i data-lucide="heart" class="w-4 h-4"></i>
+                                <span>Chest Pain Type</span>
+                            </div>
+                        </label>
+                        <select name="cp" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md 
+                                       bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Select type</option>
+                            <option value="0">Typical angina</option>
+                            <option value="1">Atypical angina</option>
+                            <option value="2">Non-anginal pain</option>
+                            <option value="3">Asymptomatic</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                            <div class="flex items-center space-x-1">
+                                <i data-lucide="activity" class="w-4 h-4"></i>
+                                <span>Resting Blood Pressure</span>
+                            </div>
+                        </label>
+                        <input type="number" name="trestbps" required min="0" max="300" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md 
+                                      bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                            <div class="flex items-center space-x-1">
+                                <i data-lucide="droplet" class="w-4 h-4"></i>
+                                <span>Cholesterol</span>
+                            </div>
+                        </label>
+                        <input type="number" name="chol" required min="0" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md 
+                                      bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                            <div class="flex items-center space-x-1">
+                                <i data-lucide="candy" class="w-4 h-4"></i>
+                                <span>Fasting Blood Sugar</span>
+                            </div>
+                        </label>
+                        <select name="fbs" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md 
+                                       bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Select option</option>
+                            <option value="0">≤ 120 mg/dl</option>
+                            <option value="1">> 120 mg/dl</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                            <div class="flex items-center space-x-1">
+                                <i data-lucide="heart-pulse" class="w-4 h-4"></i>
+                                <span>Resting ECG</span>
+                            </div>
+                        </label>
+                        <select name="restecg" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md 
+                                       bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Select type</option>
+                            <option value="0">Normal</option>
+                            <option value="1">ST-T wave abnormality</option>
+                            <option value="2">Left ventricular hypertrophy</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                            <div class="flex items-center space-x-1">
+                                <i data-lucide="heartbeat" class="w-4 h-4"></i>
+                                <span>Max Heart Rate</span>
+                            </div>
+                        </label>
+                        <input type="number" name="thalach" required min="0" max="250" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md 
+                                      bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Exercise Induced
+                            Angina</label>
+                        <select name="exang" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md 
+                                       bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Select option</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">ST Depression</label>
+                        <input type="number" name="oldpeak" required step="0.1" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md 
+                                      bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Slope of ST
+                            Segment</label>
+                        <select name="slope" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md 
+                                       bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Select type</option>
+                            <option value="0">Upsloping</option>
+                            <option value="1">Flat</option>
+                            <option value="2">Downsloping</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Number of Major
+                            Vessels</label>
+                        <select name="ca" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md 
+                                       bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Select number</option>
+                            <option value="3">0</option>
+                            <option value="2">1</option>
+                            <option value="1">2</option>
+                            <option value="0">3</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Thalassemia</label>
+                        <select name="thal" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md 
+                                       bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+                                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Select type</option>
+                            <option value="1">Normal</option>
+                            <option value="2">Fixed defect</option>
+                            <option value="3">Reversible defect</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <button type="submit" class="w-full bg-blue-600 dark:bg-blue-500 text-white py-2 px-4 rounded-md 
+                                   hover:bg-blue-700 dark:hover:bg-blue-600 
+                                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 
+                                   transition-colors duration-200 flex items-center justify-center space-x-2">
+                        <i data-lucide="heart-handshake" class="w-5 h-5"></i>
+                        <span>Predict</span>
+                    </button>
+                </div>
+            </form>
+
+<div class="mt-6">
+    {% if prediction_text %}
+    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-md border border-gray-200 dark:border-gray-600">
+        <div class="flex items-center space-x-2">
+            <i data-lucide="stethoscope" class="w-5 h-5 text-blue-500"></i>
+            <p class="text-gray-800 dark:text-gray-200 font-medium">{{ prediction_text }}</p>
+        </div>
+    </div>
+    {% endif %}
+    {% if risk_percentage %}
+    <div class="mt-2 p-4 bg-gray-50 dark:bg-gray-700 rounded-md border border-gray-200 dark:border-gray-600">
+        <div class="flex items-center space-x-2">
+            <i data-lucide="percent" class="w-5 h-5 text-blue-500"></i>
+            <p class="text-gray-800 dark:text-gray-200 font-medium">{{ risk_percentage }}</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+</div>
+
+
+<div class="mt-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4 flex items-center space-x-2">
+        <i data-lucide="info" class="w-5 h-5 text-blue-500"></i>
+        <span>About the Predictor</span>
+    </h3>
+    <p class="text-gray-600 dark:text-gray-300 text-sm">
+        This heart disease predictor uses machine learning to assess your risk based on various health parameters.
+        The results are for informational purposes only and should not replace professional medical advice.
+    </p>
+</div>
+</div>
+
+<!-- Initialize Lucide Icons -->
+<script>
+    lucide.createIcons();
+</script>
+</body>
+
+</html>

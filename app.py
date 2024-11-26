@@ -1,3 +1,4 @@
+# app.py
 from flask import Flask, request, jsonify, render_template
 import numpy as np
 import pandas as pd
@@ -31,7 +32,7 @@ def predict():
     risk_percentage = rf_model.predict_proba(final_features_scaled)[0][1] * 100
 
     # Determine risk level
-    if risk_percentage >= 80:
+    if risk_percentage >= 50:
         result = 'The patient has a high risk of heart attack.'
     else:
         result = 'The patient has a low risk of heart attack.'
