@@ -13,19 +13,23 @@ This project is a web-based application that predicts the likelihood of heart di
 - Python
 - Flask
 - Scikit-Learn
-- Random Forest Algorithm
+- Multilayer Perceptron
 - HTML, CSS, JavaScript
 - Node.js (for front-end dependencies)
 
 ## Machine Learning Model
-The heart disease prediction model is built using the Random Forest algorithm. The dataset used for training is preprocessed using feature scaling, and the model is trained with the following configuration:
+The heart disease prediction model is built using the Multilayer Perceptron algorithm. The dataset used for training is preprocessed using feature scaling, and the model is trained with the following configuration:
 
-- **Algorithm**: RandomForestClassifier
-- **Number of Estimators**: 300
-- **Max Depth**: 15
-- **Min Samples Split**: 4
-- **Class Weight**: {0: 1, 1: 3} (to handle class imbalance)
-- **Scaling**: StandardScaler is used to normalize the feature values
+- **Algorithm**: Multilayer Pereceptron
+- **hidden_layer_sizes**: (100, 50)
+- **activation**: 15
+- **solver**: 4
+- **batch_size**='auto'
+- **learning_rate**='adaptive',     
+- **max_iter**=500,                 
+- **random_state**=42,
+- **early_stopping**=True,         
+- **validation_fraction**=0.1 
 
 The dataset is split into training and testing sets (80-20 split), and the model achieves high accuracy in predicting heart disease.
 
